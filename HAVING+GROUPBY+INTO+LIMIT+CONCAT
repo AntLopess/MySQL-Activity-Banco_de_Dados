@@ -67,3 +67,47 @@ EX(20)
 SELECT COUNT(DISTINCT CategoryID) AS TotalCategorias
 FROM Products;
 ------------
+
+EX(26)
+SELECT city AS 'Cidade',
+COUNT(*) AS 'TotaldeCliente'
+FROM Customers
+GROUP BY city
+HAVING COUNT(*) > 3;
+
+EX(27)
+SELECT (SELECT suppliername
+FROM Suppliers
+WHERE Suppliers.supplierid = Products.supplierid) AS 'NomedoFornecedor',
+COUNT(*) AS 'QuantidadeDeProdutos'
+FROM Products
+GROUP BY supplierid
+HAVING COUNT(*) < 5
+ORDER BY QuantidadeDeProdutos DESC;
+
+EX(28)
+SELECT QuantidadeDeProdutos,
+COUNT(*) AS NumeroDeCategorias
+FROM (SELECT categoryid, COUNT(*) AS QuantidadeDeProdutos
+FROM Products
+GROUP BY CategoryID) AS ContagemCategorias
+GROUP BY QuantidadeDeProdutos
+HAVING COUNT(*) > 1;
+
+EX(29)
+SELECT YEAR(BirthDate) AS 'AnodeNascimento',
+COUNT(*) AS TotaldeFuncionarios
+FROM Employees
+GROUP BY YEAR(BirthDate)
+HAVING COUNT(*) > 1;
+
+EX(30)
+SELECT Country AS 'Pais',
+COUNT(*) AS 'Registros'
+FROM Suppliers
+GROUP BY Country
+HAVING COUNT(*) > 1;
+(não dava para fazer isso da tabela shippers da w3schools)
+
+-------------
+EX(36)
