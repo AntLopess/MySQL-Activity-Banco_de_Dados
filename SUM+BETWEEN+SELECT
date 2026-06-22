@@ -146,3 +146,146 @@ SELECT SUM(QUANTITY) AS 'SomaQuantidade'
 FROM orderdetails
 WHERE productid BETWEEN 15 AND 25;
 
+EX 26 . Obtenha a soma de Quantity onde o OrderDetailID seja ímpar.
+SELECT SUM(Quantity) AS QUANTIDADE,
+       OrderDetailID AS 'ORDENS DETALHADAS'
+FROM OrderDetails
+WHERE OrderDetailID %2 <> = 0;
+
+EX 27
+SELECT SUM(Quantity) AS QUANTIDADE,
+       ProductID AS PRODUTOS 
+FROM OrderDetails
+WHERE ProductID >50;
+
+EX 28 
+SELECT SUM(Quantity) AS QUANTIDADE
+FROM OrderDetails
+WHERE Quantity BETWEEN 5 AND 20 ;
+
+EX 29
+SELECT SUM(Quantity) AS QUANTIDADE
+FROM OrderDetails
+WHERE OrderDetailID < 10 ;
+
+EX 30
+SELECT SUM(Quantity) AS QUANTIDADE,
+       OrderID  AS ORDENS
+FROM OrderDetails
+WHERE OrderID > 100 ;
+
+EX 31
+SELECT SUM(Quantity) AS QUANTIDADE,
+      ProductID AS PRODUTO
+FROM OrderDetails
+WHERE  ProductID IN( 2,4,8 ) ;
+
+EX 32
+SELECT SUM(Quantity) AS QUANTIDADE,
+        OrderDetailID AS 'ORDENS DETALHADAS'
+FROM OrderDetails
+WHERE  OrderDetailID LIKE'3%' ;
+
+EX 33
+SELECT SUM(Quantity) AS QUANTIDADE
+FROM OrderDetails
+WHERE Quantity %10=0 ;
+
+EX34
+SELECT SUM(Quantity) AS QUANTIDADE,
+        OrderID  AS ORDENS
+FROM OrderDetails
+WHERE OrderID > 250  ;
+
+EX35
+SELECT SUM(Quantity) AS QUANTIDADE,
+          ProductID  AS PRODUTOS
+FROM OrderDetails
+WHERE ProductID  LIKE '%6' ;
+
+EX36
+SELECT SUM(Quantity) AS QUANTIDADE,
+        OrderID  AS ORDENS
+FROM OrderDetails
+WHERE OrderID <50;
+
+EX37
+SELECT SUM(Quantity) AS QUANTIDADE,
+          ProductID  AS PRODUTOS
+FROM OrderDetails
+WHERE ProductID >30 ;
+
+EX38
+SELECT SUM(Quantity) AS QUANTIDADE,
+        OrderDetailID AS 'ORDENS DETALHADAS'
+FROM OrderDetails
+WHERE  OrderDetailID >400 ;
+
+EX39
+SELECT SUM(Quantity) AS QUANTIDADE,
+        OrderID  AS ORDENS
+FROM OrderDetails
+WHERE OrderID BETWEEN 20 AND 60;
+
+EX 40 
+SELECT SUM(Quantity) AS QUANTIDADE
+FROM OrderDetails
+WHERE Quantity >18 ;
+
+EX 41
+SELECT SUM(Quantity) AS QUANTIDADE,
+          ProductID  AS PRODUTOS
+FROM OrderDetails
+WHERE ProductID %9=0 ;
+
+EX 42
+SELECT SUM(Quantity) AS QUANTIDADE,
+        OrderDetailID AS 'ORDENS DETALHADAS'
+FROM OrderDetails
+WHERE  OrderDetailID <150 ;
+
+EX 43
+SELECT SUM(Quantity) AS QUANTIDADE
+FROM OrderDetails
+WHERE Quantity BETWEEN 25 AND 40 ;
+
+EX 44
+SELECT SUM(Quantity) AS QUANTIDADE,
+          ProductID  AS PRODUTOS
+FROM OrderDetails
+WHERE ProductID =7 ;
+
+EX 45
+SELECT SUM(Quantity) AS QUANTIDADE,
+        OrderID  AS ORDENS
+FROM OrderDetails
+WHERE OrderID >400 ;
+
+EX 46
+SELECT SUM(Quantity) AS QUANTIDADE,
+        OrderDetailID AS 'ORDENS DETALHADAS'
+FROM OrderDetails
+WHERE  OrderDetailID LIKE '%9';
+
+EX 47
+SELECT SUM(Quantity) AS QUANTIDADE,
+        OrderID  AS ORDENS
+FROM OrderDetails
+WHERE OrderID %5=0;
+
+EX 48 
+SELECT SUM(Quantity) AS QUANTIDADE
+FROM OrderDetails
+WHERE Quantity BETWEEN 20 AND 50 ;
+
+EX 49 
+SELECT SUM(Quantity) AS QUANTIDADE,
+          ProductID  AS PRODUTOS
+FROM OrderDetails
+WHERE ProductID <12 ;
+
+EX 50
+SELECT SUM(Quantity) AS QUANTIDADE,
+        OrderID  AS ORDENS
+FROM OrderDetails
+WHERE OrderID BETWEEN 100 AND 300 ;
