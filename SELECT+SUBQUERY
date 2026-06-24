@@ -39,7 +39,9 @@ LIMIT 10;
 cliente e o país, mas apenas para os clientes que residem no mesmo país
 do fornecedor com SupplierID = 1 (obtenha este país via subquery).*/
 
-
+SELECT CONCAT(CustomerName,' - ',Country) AS 'Nome e Pais do Cliente'
+FROM customers
+WHERE 
 
 /*5. (Subquery no WHERE, Cálculos, LIMIT): Selecione os produtos onde o
 valor calculado do seu stock hipotético (Price * 10) seja inferior ao preço do
