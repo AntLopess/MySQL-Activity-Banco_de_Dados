@@ -115,3 +115,140 @@ FROM shippers
 LEFT JOIN orders ON
 shippers.ShipperID = orders.ShipperID
 GROUP BY shippers.ShipperName, shippers.ShipperID;
+
+/*11.  (RIGHT) Liste todos os produtos e seus respectivos fornecedores. Use
+RIGHT JOIN para garantir que todos os fornecedores apareçam, mesmo
+aqueles sem produtos vinculados.*/
+
+SELECT products.ProductName AS 'Nome Produto',
+ suppliers.SupplierName AS 'Nome Fornecedor'
+FROM products
+RIGHT JOIN suppliers ON
+suppliers.SupplierID = products.SupplierID;
+
+/*12. (LEFT) Mostre o nome de todos os fornecedores e, caso existam, os nomes
+dos produtos que eles fornecem, filtrando para mostrar apenas
+fornecedores da 'Germany'.*/
+SELECT products.ProductName AS 'Nome Produto',
+ suppliers.SupplierName AS 'Nome Fornecedor'
+FROM products
+LEFT JOIN suppliers ON
+suppliers.SupplierID = products.SupplierID
+WHERE  suppliers.Country = 'Germany';
+
+/* 13 (RIGHT) Relacione todas as transportadoras com os pedidos realizados,
+garantindo que as transportadoras sem pedidos no sistema ainda sejam
+listadas.*/
+SELECT orders.OrderID AS 'PEDIDOS ',
+ shippers.ShipperName AS 'TRANSPORTADORAS'
+FROM orders
+RIGHT JOIN shippers 
+ON Orders.ShipperID = Shippers.ShipperID;
+
+/*14. Liste o nome do produto, o nome do fornecedor e o nome da
+transportadora para um pedido específico (ex: OrderID 10248). Dica: Você
+precisará conectar 4 tabelas.*/
+SELECT  Products.ProductName AS 'Nome Produto',
+    Suppliers.SupplierName AS 'Nome Fornecedor',
+    Shippers.ShipperName AS 'Nome Transportadora'
+FROM Orders
+INNER JOIN orderdetails
+ON Orders.OrderID = orderdetails.OrderID
+INNER JOIN products
+ON orderdetails.ProductID = products.ProductID
+INNER JOIN Suppliers
+    ON Products.SupplierID = Suppliers.SupplierID
+INNER JOIN shippers
+ON orders.ShipperID = shippers.ShipperID 
+WHERE orders.OrderID = 10248;
+
+/*15 Exiba o nome do fornecedor, a cidade do fornecedor e a data do pedido
+para todos os produtos que foram vendidos e entregues pela
+transportadora 'United Package'.*/
+SELECT 
+    Suppliers.SupplierName AS 'Nome Fornecedor',
+    Suppliers.City AS 'Cidade',
+    Orders.OrderDate AS 'Data'
+FROM Orders
+INNER JOIN Shippers
+    ON Orders.ShipperID = Shippers.ShipperID
+INNER JOIN OrderDetails
+    ON Orders.OrderID = OrderDetails.OrderID
+INNER JOIN Products
+    ON OrderDetails.ProductID = Products.ProductID
+INNER JOIN Suppliers
+    ON Products.SupplierID = Suppliers.SupplierID
+WHERE Shippers.ShipperName = 'United Package';
+
+/*16.Crie uma consulta que mostre quais fornecedores (SupplierName) têm
+produtos que nunca foram associados a um pedido (OrderID is NULL).*/
+SELECT 
+    Suppliers.SupplierName
+FROM Suppliers
+INNER JOIN Products
+    ON Suppliers.SupplierID = Products.SupplierID
+LEFT JOIN OrderDetails
+    ON Products.ProductID = OrderDetails.ProductID
+WHERE OrderDetails.OrderID IS NULL;
+
+/*17. Liste o nome do contato do fornecedor e o nome do produto, mas apenas
+para produtos que pertencem às categorias 1, 3 ou 5 e que são de
+fornecedores do 'UK'.*/
+SELECT 
+    suppliers.ContactName AS 'Contato do Fornecedor',
+    products.ProductName AS 'Nome do Produto'
+FROM products
+INNER JOIN suppliers
+    ON products.SupplierID = suppliers.SupplierID
+WHERE suppliers.Country = 'UK'
+    AND products.CategoryID IN (1, 3, 5);
+
+/*18. Encontre o valor total gasto em fretes (ou apenas a contagem de pedidos)
+por fornecedor, agrupando pelo nome do fornecedor e usando joins para
+conectar as tabelas necessárias.*/
+SELECT 
+    Suppliers.SupplierID AS Fornecedores,
+    Suppliers.SupplierName AS NomeDoFornecedor,
+    COUNT( Orders.OrderID) AS TotalPedidos
+FROM Suppliers
+INNER JOIN Products
+    ON Suppliers.SupplierID = Products.SupplierID
+INNER JOIN OrderDetails
+    ON Products.ProductID = OrderDetails.ProductID
+INNER JOIN Orders
+    ON OrderDetails.OrderID = Orders.OrderID
+ GROUP BY 
+    Suppliers.SupplierID,
+    Suppliers.SupplierName;
+    
+    /*19.Mostre o nome do produto, o nome da categoria (assuma a lógica de ID) e o
+nome do fornecedor, onde o preço do produto é superior à média de preços
+de todos os produtos..*/
+SELECT  Suppliers.SupplierName AS NomedosFornecedores,
+       Products.ProductName AS Nomedosprodutos,
+        Categories.CategoryName AS NomedaCategoria
+FROM  Products
+INNER JOIN Suppliers
+ON  Suppliers.SupplierID =  Products.SupplierID
+INNER JOIN Categories
+ON  Categories.CategoryID = Products.CategoryID
+WHERE Products.Price > (SELECT AVG(Price) from Products);
+
+/*20. Desafio Final: Liste todos os pedidos, o nome do fornecedor de cada
+produto contido no pedido e o nome da transportadora. (Nota: Esta
+consulta exige uma visão clara de como as tabelas Orders e Products se
+conectam através de uma tabela intermediária de itens, caso ela exista, ou
+uma lógica de join direto se o schema for simplificado)..*/
+SELECT orders.OrderID as Ordens,
+       Suppliers.SupplierName as NomedoFornecedor,
+       	Shippers.ShipperName as NomedaTransportadora,
+        Products.ProductName AS NomedoProduto
+FROM Products
+Join Suppliers
+ON Suppliers.SupplierID = Products.SupplierID
+JOIN OrderDetails
+ON OrderDetails.ProductID = Products.ProductID 
+join Orders
+ON Orders.orderID = OrderDetails.orderID
+Join Shippers
+on Shippers.shipperID= Orders.shipperid;
